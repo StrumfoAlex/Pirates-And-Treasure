@@ -16,7 +16,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    int hasKey = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -86,7 +86,7 @@ public class Player extends Entity {
             pickUpObject(objIndex);
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if (collisionOn == false) {
+            if (!collisionOn) {
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -125,20 +125,29 @@ public class Player extends Entity {
                     gp.playSE(4);
                     hasKey++;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gp.playSE(2);
                         gp.obj[i] = null;
                         hasKey--;
+                        gp.ui.showMessage("You opened the door!");
+                    }
+                    else {
+                        gp.ui.showMessage("You need a key!");
                     }
                     break;
                 case "Boots":
                     gp.playSE(1);
                     speed += 1;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed up!");
                     break;
                 case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(3);
                     break;
             }
         }
