@@ -23,7 +23,7 @@ public class UI {
 
         consolas_40 = new Font("Consolas", Font.PLAIN, 40);
         consolas_80B = new Font("Consolas", Font.BOLD, 80);
-        OBJ_Key key = new OBJ_Key();
+        OBJ_Key key = new OBJ_Key(gp);
         keyImage = key.image;
     }
 
