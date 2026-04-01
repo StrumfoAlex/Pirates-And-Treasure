@@ -2,12 +2,14 @@ package main;
 import object.OBJ_Key;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 
 public class UI {
     GamePanel gp;
     Graphics2D g2;
-    Font consolas_40, consolas_80B;
+    Font consolas, maruMonica;
     //BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
@@ -21,8 +23,17 @@ public class UI {
     public UI(GamePanel gp) {
         this.gp = gp;
 
-        consolas_40 = new Font("Consolas", Font.PLAIN, 40);
-        consolas_80B = new Font("Consolas", Font.BOLD, 80);
+        try {
+            InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
+
+            is = getClass().getResourceAsStream("/font/CONSOLA.TTF");
+            consolas = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
+
+
         //OBJ_Key key = new OBJ_Key(gp);
         //keyImage = key.image;
     }
@@ -34,7 +45,7 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(consolas_40);
+        g2.setFont(consolas);
         g2.setColor(Color.white);
 
         // PLAY STATE
@@ -52,7 +63,8 @@ public class UI {
     }
 
     public void drawPauseScreen() {
-        g2.setFont(consolas_80B);
+        g2.setFont(maruMonica);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 128F));
         String text = "PAUSED";
         int x = getXforCenteredText(text);
         int y = gp.screenHeight / 2;
