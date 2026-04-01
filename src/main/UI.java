@@ -16,6 +16,7 @@ public class UI {
     int messageCounter = 0;
     public boolean gameFinished = false;
     public String currentDiaglogue = "";
+    public int commandNum = 0;
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("0.00");
@@ -48,6 +49,11 @@ public class UI {
         g2.setFont(consolas);
         g2.setColor(Color.white);
 
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
+
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             // do play state stuff
@@ -59,6 +65,60 @@ public class UI {
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
+        }
+    }
+
+    private void drawTitleScreen() {
+        //background color
+        g2.setColor(new Color(248, 178, 92));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        //title name
+        g2.setFont(maruMonica);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "Pirates And Treasure";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+
+        //shadow
+        g2.setColor(Color.black);
+        g2.drawString(text, x + 5, y + 5);
+
+        //main color
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        //personaj
+        x = gp.screenWidth / 2  + gp.tileSize * 4;
+        y += gp.tileSize * 3;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        //menu
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NEW GAME";
+        //x = getXforCenteredText(text);
+        x = gp.screenWidth / 2  - gp.tileSize * 6;
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - 40, y);
+        }
+
+        text = "LOAD GAME";
+        x = gp.screenWidth / 2  - gp.tileSize * 6;
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - 40, y);
+        }
+
+        text = "QUIT";
+        x = gp.screenWidth / 2  - gp.tileSize * 6;
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 2) {
+            g2.drawString(">", x - 40, y);
         }
     }
 
