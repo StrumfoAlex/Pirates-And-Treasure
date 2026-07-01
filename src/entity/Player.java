@@ -78,6 +78,7 @@ public class Player extends Entity {
     public void update() {
 
         if (keyH.jPressed) {
+            gp.playSE(5);
             attacking = true;
         }
         if (attacking)
@@ -219,11 +220,15 @@ public class Player extends Entity {
     private void damageMonster(int i) {
         if (i != 999) {
             if (!gp.monster[i].invincible) {
+                gp.playSE(8);
+
                 gp.monster[i].life -=1;
                 gp.monster[i].invincible = true;
 
+                gp.monster[i].damageReaction();
+
                 if (gp.monster[i].life <= 0) {
-                    gp.monster[i] = null;
+                    gp.monster[i].dying = true;
                 }
             }
         }
@@ -233,6 +238,7 @@ public class Player extends Entity {
         if (monsterIndex != 999) {
             if (!invincible)
             {
+                gp.playSE(7);
                 life -= 1;
                 invincible = true;
             }
