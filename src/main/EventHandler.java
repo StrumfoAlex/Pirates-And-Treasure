@@ -79,13 +79,14 @@ public class EventHandler {
 
     public void damageBush(int col, int row, int gameState) {
         gp.gameState = gameState;
+        gp.playSE(7);
         gp.ui.currentDiaglogue = "You ate a toxic berry!";
         gp.player.life -= 1;
         //eventRect[col][row].eventDone = true;
         canTouchEvent = false;
     }
     public void healingBush(int col, int row, int gameState) {
-        if (gp.keyH.enterPressed == true)
+        if (gp.keyH.enterPressed)
         {
             gp.gameState = gameState;
             gp.ui.currentDiaglogue = "You ate a good berry!\nYour life is fully restored!";
