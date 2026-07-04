@@ -96,11 +96,11 @@ public class KeyHandler implements KeyListener {
         }
 
         //Debug for seeing how long it takes to draw
-        if (code == KeyEvent.VK_T) {
-            if (debug)
-                debug = false;
-            else
-                debug = true;
+        if (code == KeyEvent.VK_O) {
+            debug = !debug;
+        }
+        if (code == KeyEvent.VK_I) {
+            gp.tileM.loadMap("/maps/world02.txt");
         }
 
         //If player attack
