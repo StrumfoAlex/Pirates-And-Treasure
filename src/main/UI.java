@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class UI {
     GamePanel gp;
@@ -15,11 +16,13 @@ public class UI {
     //BufferedImage keyImage;
     BufferedImage heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0;
+    //public String message = "";
+    //int messageCounter = 0;
     public boolean gameFinished = false;
     public String currentDiaglogue = "";
     public int commandNum = 0;
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
 
     double playTime;
     DecimalFormat dFormat = new DecimalFormat("0.00");
@@ -48,9 +51,12 @@ public class UI {
         heart_blank = heart.image3;
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
+    public void addMessage(String text) {
+//        message = text;
+//        messageOn = true;
+
+        message.add(text);
+        messageCounter.add(0);
     }
 
     public void draw(Graphics2D g2) {
@@ -66,6 +72,7 @@ public class UI {
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
+            drawMessage();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
@@ -108,6 +115,30 @@ public class UI {
             g2.drawImage(heart_blank, x, y, null);
             i++;
             x += gp.tileSize;
+        }
+    }
+
+    private void drawMessage() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize * 4;
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24F));
+
+        for (int i = 0; i < message.size(); i++) {
+            if (message.get(i) != null) {
+                g2.setColor(Color.black);
+                g2.drawString(message.get(i), messageX + 2, messageY + 2);
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY += 50;
+
+                if (messageCounter.get(i) > 180) {
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
         }
     }
 
