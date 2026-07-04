@@ -122,6 +122,30 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_C) {
             gp.gameState = gp.playState;
         }
+        if (code == KeyEvent.VK_W ||  code == KeyEvent.VK_UP) {
+            if (gp.ui.slotRow != 0) {
+                gp.ui.slotRow--;
+                gp.playSE(4);
+            }
+        }
+        if (code == KeyEvent.VK_A ||   code == KeyEvent.VK_LEFT) {
+            if (gp.ui.slotCol != 0) {
+                gp.ui.slotCol--;
+                gp.playSE(4);
+            }
+        }
+        if (code == KeyEvent.VK_S ||  code == KeyEvent.VK_DOWN) {
+            if (gp.ui.slotRow < 3) {
+                gp.ui.slotRow++;
+                gp.playSE(4);
+            }
+        }
+        if (code == KeyEvent.VK_D ||  code == KeyEvent.VK_RIGHT) {
+            if (gp.ui.slotCol < 5) {
+                gp.ui.slotCol++;
+                gp.playSE(4);
+            }
+        }
     }
 
     @Override
