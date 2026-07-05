@@ -166,7 +166,7 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString(text, x, y);
 
-        //personaj
+        //character
         x = gp.screenWidth / 2  + gp.tileSize * 4;
         y += gp.tileSize * 3;
         g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
@@ -334,12 +334,26 @@ public class UI {
         // SLOT
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;
-        final int slotX = slotXstart;
-        final int slotY = slotYstart;
 
         // DRAW PLAYER'S ITEMS
         for (int i = 0; i < gp.player.inventory.size(); i++) {
-            g2.drawImage(gp.player.inventory.get(i).down1, slotXstart + (i % 6) * gp.tileSize, slotYstart + (i / 6) * gp.tileSize, null);
+            int slotX = slotXstart + (i % 6) * gp.tileSize;
+            int slotY = slotYstart + (i / 6) * gp.tileSize;
+
+            // SLOT BACKGROUND
+            g2.setColor(new Color(60, 50, 50));
+            g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+
+            // EQUIP HIGHLIGHT (draw on top of background)
+            if (gp.player.inventory.get(i) == gp.player.currentWeapon ||
+                gp.player.inventory.get(i) == gp.player.currentShield)
+            {
+                g2.setColor(new Color(240, 190, 90));
+                g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+            }
+
+            // ITEM IMAGE
+            g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null);
         }
 
         // CURSOR
@@ -358,7 +372,6 @@ public class UI {
         int dFrameY =  frameY + frameHeight;
         // dFrameWidth = frameWidth;
         int dFrameHeight = gp.tileSize * 3;
-        drawSubWindow(frameX, dFrameY, frameWidth, dFrameHeight);
 
         // DRAW DESCRIPTION TEXT
         int textX = frameX + 20;
@@ -368,6 +381,7 @@ public class UI {
         int itemIndex = getItemIndexOnSlot();
 
         if (itemIndex < gp.player.inventory.size()) {
+            drawSubWindow(frameX, dFrameY, frameWidth, dFrameHeight);
             for (String line: gp.player.inventory.get(itemIndex).description.split("\n")) {
                 g2.drawString(line, textX, textY);
                 textY += 32;
@@ -377,7 +391,7 @@ public class UI {
     }
 
     public int getItemIndexOnSlot() {
-        return slotCol + (slotRow * 7);
+        return slotCol + (slotRow * 6);
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {

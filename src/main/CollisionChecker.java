@@ -90,7 +90,7 @@ public class CollisionChecker {
                     if (gp.obj[i].collision == true) {
                         entity.collisionOn = true;
                     }
-                    if (player == true) {
+                    if (player) {
                         index = i;
                     }
                 }

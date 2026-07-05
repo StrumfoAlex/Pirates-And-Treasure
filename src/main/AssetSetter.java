@@ -2,10 +2,7 @@ package main;
 
 import entity.NPC_OldMan;
 import monster.MON_Slime;
-import object.OBJ_Boots;
-import object.OBJ_Chest;
-import object.OBJ_Door;
-import object.OBJ_Key;
+import object.*;
 
 public class AssetSetter {
     GamePanel gp;
@@ -15,7 +12,49 @@ public class AssetSetter {
     }
 
     public void setObject() {
+        int i = 0;
 
+        // KEYS
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 12;
+        gp.obj[i].worldY = gp.tileSize * 51;
+        i++;
+
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 33;
+        gp.obj[i].worldY = gp.tileSize * 64;
+        i++;
+
+        gp.obj[i] = new OBJ_Key(gp);
+        gp.obj[i].worldX = gp.tileSize * 59;
+        gp.obj[i].worldY = gp.tileSize * 56;
+        i++;
+
+        // TOOLS
+        gp.obj[i] = new OBJ_Axe(gp);
+        gp.obj[i].worldX = gp.tileSize * 62;
+        gp.obj[i].worldY = gp.tileSize * 40;
+        i++;
+
+        gp.obj[i] = new OBJ_Shield_Iron(gp);
+        gp.obj[i].worldX = gp.tileSize * 64;
+        gp.obj[i].worldY = gp.tileSize * 40;
+        i++;
+
+        // RESOURCES
+        gp.obj[i] = new OBJ_Medicine(gp);
+        gp.obj[i].worldX = gp.tileSize * 64;
+        gp.obj[i].worldY = gp.tileSize * 44;
+
+        // DOORS
+//        gp.obj[i] = new OBJ_Door(gp);
+//        gp.obj[i].worldX = gp.tileSize * 63;
+//        gp.obj[i].worldY = gp.tileSize * 42;
+//        i++;
+//
+//        gp.obj[i] = new OBJ_Door(gp);
+//        gp.obj[i].worldX = gp.tileSize * 63;
+//        gp.obj[i].worldY = gp.tileSize * 46;
     }
 
     public void setNPC() {
