@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
     public Entity monster[] = new Entity[20];
+    public ArrayList<Entity> projectileList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<Entity>();
 
 
@@ -133,6 +134,17 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             }
+            // PROJECTILES
+            for (int i = 0; i < projectileList.size(); i++) {
+                if (projectileList.get(i) != null) {
+                    if (projectileList.get(i).alive) {
+                        projectileList.get(i).update();
+                    }
+                    if (!projectileList.get(i).alive) {
+                        projectileList.remove(i);
+                    }
+                }
+            }
         }
         if (gameState == pauseState)
         {
@@ -146,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Debug for see how long it takes to draw
         long drawStart = 0;
-        if (keyH.debug == true) {
+        if (keyH.debug) {
             drawStart = System.nanoTime();
         }
 
@@ -162,21 +174,27 @@ public class GamePanel extends JPanel implements Runnable {
             // Add entities to the list
             entityList.add(player);
 
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    entityList.add(npc[i]);
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entityList.add(entity);
                 }
             }
 
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    entityList.add(obj[i]);
+            for (Entity entity : obj) {
+                if (entity != null) {
+                    entityList.add(entity);
                 }
             }
 
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) {
-                    entityList.add(monster[i]);
+            for (Entity entity : monster) {
+                if (entity != null) {
+                    entityList.add(entity);
+                }
+            }
+
+            for  (Entity entity : projectileList) {
+                if (entity != null) {
+                    entityList.add(entity);
                 }
             }
 

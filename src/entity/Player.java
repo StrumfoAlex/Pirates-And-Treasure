@@ -3,6 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Bullet;
 import object.OBJ_Key;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_Normal;
@@ -24,6 +25,9 @@ public class Player extends Entity {
 
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 24;
+    
+    public int pistolImageCounter = 0;
+    public final int pistolImageDuration = 15; // frames to display pistol image
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -67,6 +71,7 @@ public class Player extends Entity {
         coins = 0;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
+        projectile = new OBJ_Bullet(gp);
         attack = getAttack();
         defense = getDefense();
     }
@@ -121,15 +126,28 @@ public class Player extends Entity {
         }
     }
 
+    public void pistolImage() {
+        up1 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
+        up2 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
+        down1 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);;
+        down2 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);
+        left1 = setup("/player/boy_gun_left", gp.tileSize,  gp.tileSize);
+        left2 = setup("/player/boy_gun_left", gp.tileSize,  gp.tileSize);
+        right1 = setup("/player/boy_gun_right", gp.tileSize,  gp.tileSize);
+        right2 = setup("/player/boy_gun_right", gp.tileSize,  gp.tileSize);
+
+        // Set counter to keep pistol images displayed for a duration
+        pistolImageCounter = pistolImageDuration;
+    }
+
     public void update() {
 
-        if (keyH.jPressed) {
+        if (keyH.attackKeyPressed) {
             attacking = true;
         }
         if (attacking)
         {
             attacking();
-            gp.playSE(5);
         }
         else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed || keyH.enterPressed) {
             if (keyH.upPressed) {
@@ -202,6 +220,34 @@ public class Player extends Entity {
             }
         }
 
+        if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30) {
+            // DRAW THE PLAYER SHOOTING IMAGES
+            pistolImage();
+
+            // SET DEFAULT COORDINATES, DIRECTION AND USER
+            projectile.set(worldX, worldY, direction, true, this);
+
+            // ADD IT TO THE LIST
+            gp.projectileList.add(projectile);
+
+            shotAvailableCounter = 0;
+
+            gp.playSE(9);
+        }
+
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
+        }
+
+        // Handle pistol image display timer
+        if (pistolImageCounter > 0) {
+            pistolImageCounter--;
+            if (pistolImageCounter == 0) {
+                // Restore player images after pistol image duration expires
+                getPlayerImage();
+            }
+        }
+
         if (invincible) {
             invincibleCounter++;
             if (invincibleCounter > 60) {
@@ -216,6 +262,7 @@ public class Player extends Entity {
 
         if (spriteCounter <= 5) {
             spriteNum = 1;
+            gp.playSE(5);
         }
         if (spriteCounter > 5 && spriteCounter <= 25) {
             spriteNum = 2;
@@ -248,7 +295,7 @@ public class Player extends Entity {
 
             // Check monster collision with updated worldXY and solidArea
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
 
             // After checking collision, restore original data
             worldX = currentWorldX;
@@ -263,7 +310,7 @@ public class Player extends Entity {
         }
     }
 
-    private void damageMonster(int i) {
+    public void damageMonster(int i, int attack) {
         if (i != 999) {
             if (!gp.monster[i].invincible) {
                 gp.playSE(8);
@@ -292,7 +339,7 @@ public class Player extends Entity {
 
     private void contactMonster(int i) {
         if (i != 999) {
-            if (!invincible)
+            if (!invincible && !gp.monster[i].dying)
             {
                 gp.playSE(7);
                 int damage =  gp.monster[i].attack - defense;

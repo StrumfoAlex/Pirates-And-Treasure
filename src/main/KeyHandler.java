@@ -1,11 +1,13 @@
 package main;
 
+import entity.Projectile;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, jPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, attackKeyPressed, shotKeyPressed;
     //debug
     public boolean debug = false;
 
@@ -103,9 +105,12 @@ public class KeyHandler implements KeyListener {
             gp.tileM.loadMap("/maps/world02.txt");
         }
 
-        //If player attack
+        // If player attack
         if (code == KeyEvent.VK_J) {
-            jPressed = true;
+            attackKeyPressed = true;
+        }
+        if (code == KeyEvent.VK_K) {
+            shotKeyPressed = true;
         }
     }
     public void pauseState(int code) {
@@ -168,7 +173,10 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
         if (code == KeyEvent.VK_J) {
-            jPressed = false;
+            attackKeyPressed = false;
+        }
+        if (code == KeyEvent.VK_K) {
+            shotKeyPressed = false;
         }
     }
 }
