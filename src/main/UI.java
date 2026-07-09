@@ -1,5 +1,6 @@
 package main;
 import entity.Entity;
+import object.OBJ_Ammo;
 import object.OBJ_Heart;
 
 import java.awt.*;
@@ -14,7 +15,7 @@ public class UI {
     Graphics2D g2;
     Font consolas, maruMonica;
     //BufferedImage keyImage;
-    BufferedImage heart_full, heart_half, heart_blank;
+    BufferedImage heart_full, heart_half, heart_blank, ammo_full, ammo_blank;
     public boolean messageOn = false;
     //public String message = "";
     //int messageCounter = 0;
@@ -52,6 +53,9 @@ public class UI {
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
+        Entity ammo = new OBJ_Ammo(gp);
+        ammo_full = ammo.image;
+        ammo_blank = ammo.image2;
     }
 
     public void addMessage(String text) {
@@ -120,6 +124,27 @@ public class UI {
             i++;
             x += gp.tileSize;
         }
+
+        // DRAW MAX AMMO
+        x = gp.tileSize / 2 - 7;
+        y = (int)(gp.tileSize * 1.75);
+        i = 0;
+        while (i < gp.player.maxAmmo) {
+            g2.drawImage(ammo_blank, x, y, null);
+            i++;
+            x += 45;
+        }
+
+        // DRAW AMMO
+        x = gp.tileSize / 2 - 7;
+        y = (int)(gp.tileSize * 1.75);
+        i = 0;
+        while (i < gp.player.ammo) {
+            g2.drawImage(ammo_full, x, y, null);
+            i++;
+            x += 45;
+        }
+
     }
 
     private void drawMessage() {
@@ -241,12 +266,14 @@ public class UI {
 
         int textX = frameX + 20;
         int textY = frameY + gp.tileSize;
-        final int lineHeight = 62;
+        final int lineHeight = 56; // or 62 with a line less
 
         // NAMES
         g2.drawString("Level", textX, textY);
         textY += lineHeight;
         g2.drawString("Life", textX, textY);
+        textY += lineHeight;
+        g2.drawString("Ammo", textX, textY);
         textY += lineHeight;
         g2.drawString("Strength", textX, textY);
         textY += lineHeight;
@@ -278,6 +305,11 @@ public class UI {
         textY += lineHeight;
 
         value = String.valueOf(gp.player.life + "/" +  gp.player.maxLife);
+        textX = getXForAlignToRightText(value, tailX);
+        g2.drawString(value, textX, textY);
+        textY += lineHeight;
+
+        value = String.valueOf(gp.player.ammo + "/" +  gp.player.maxAmmo);
         textX = getXForAlignToRightText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;

@@ -3,10 +3,7 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
-import object.OBJ_Bullet;
-import object.OBJ_Key;
-import object.OBJ_Shield_Wood;
-import object.OBJ_Sword_Normal;
+import object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -64,6 +61,9 @@ public class Player extends Entity {
         level = 1;
         maxLife = 6;
         life = maxLife;
+        maxAmmo = 4;
+        ammo = maxAmmo;
+        ammoRocks = 10;
         strength = 1; // more strength -> more damage
         dexterity = 1; // more dexterity -> less damage received
         exp = 0;
@@ -72,6 +72,7 @@ public class Player extends Entity {
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         projectile = new OBJ_Bullet(gp);
+        //projectile = new OBJ_Rock(gp);
         attack = getAttack();
         defense = getDefense();
     }
@@ -220,12 +221,17 @@ public class Player extends Entity {
             }
         }
 
-        if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30) {
+        if (gp.keyH.shotKeyPressed && !projectile.alive && shotAvailableCounter == 30
+            && projectile.haveResource(this)) {
+
             // DRAW THE PLAYER SHOOTING IMAGES
             pistolImage();
 
             // SET DEFAULT COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
+
+            // SUBTRACT THE AMMO COST
+            projectile.subtractResource(this);
 
             // ADD IT TO THE LIST
             gp.projectileList.add(projectile);

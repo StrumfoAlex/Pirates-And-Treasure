@@ -1,5 +1,6 @@
 package object;
 
+import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
@@ -29,5 +30,13 @@ public class OBJ_Bullet extends Projectile {
         left2 = setup("/projectile/bullet_left_2", gp.tileSize, gp.tileSize);
         right1 = setup("/projectile/bullet_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/projectile/bullet_right_2", gp.tileSize, gp.tileSize);
+    }
+
+    public boolean haveResource(Entity user) {
+        return user.ammo >= useCost;
+    }
+
+    public void subtractResource(Entity user) {
+        user.ammo -= useCost;
     }
 }

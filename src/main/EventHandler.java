@@ -39,8 +39,8 @@ public class EventHandler {
          // This is to prevent the player from triggering the same event multiple times in a row.
          int xDistance = Math.abs(gp.player.worldX - previousEventX);
          int yDistance = Math.abs(gp.player.worldY - previousEventY);
-         int discance = Math.max(xDistance, yDistance);
-         if (discance > gp.tileSize) {
+         int distance = Math.max(xDistance, yDistance);
+         if (distance > gp.tileSize) {
              canTouchEvent = true;
          }
 
@@ -60,7 +60,7 @@ public class EventHandler {
         eventRect[col][row].x = col * gp.tileSize + eventRect[col][row].x;
         eventRect[col][row].y = row * gp.tileSize + eventRect[col][row].y;
 
-        if (gp.player.solidArea.intersects(eventRect[col][row]) && eventRect[col][row].eventDone == false) {
+        if (gp.player.solidArea.intersects(eventRect[col][row]) && !eventRect[col][row].eventDone) {
             if (gp.player.direction.contentEquals(direction) || direction.contentEquals("any")) {
                 hit = true;
 
@@ -89,8 +89,10 @@ public class EventHandler {
         if (gp.keyH.enterPressed)
         {
             gp.gameState = gameState;
-            gp.ui.currentDiaglogue = "You ate a good berry!\nYour life is fully restored!";
+            gp.ui.currentDiaglogue = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!";
             gp.player.life = gp.player.maxLife;
+            gp.player.ammo =  gp.player.maxAmmo;
+            gp.aSetter.setMonster();
         }
     }
     public void teleport(int gameState) {
