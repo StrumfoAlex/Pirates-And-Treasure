@@ -261,6 +261,13 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
+
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (ammo > maxAmmo) {
+            ammo = maxAmmo;
+        }
     }
 
     private void attacking() {
@@ -378,19 +385,27 @@ public class Player extends Entity {
     public void pickUpObject(int i) {
         if (i != 999)
         {
-            String text;
-
-            if (inventory.size() != maxInventorySize) {
-                inventory.add(gp.obj[i]);
-                gp.playSE(4);
-
-                text = "You got a " + gp.obj[i].name + "!";
+            // PICKUP ONLY ITEMS
+            if (gp.obj[i].type == type_pickupOnly) {
+                gp.obj[i].use(this);
+                gp.obj[i] = null;
             }
+            // INVENTORY ITEMS
             else {
-                text = "You cannot carry any more!";
+                String text;
+
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(gp.obj[i]);
+                    gp.playSE(4);
+
+                    text = "You got a " + gp.obj[i].name + "!";
+                }
+                else {
+                    text = "You cannot carry any more!";
+                }
+                gp.ui.addMessage(text);
+                gp.obj[i] = null;
             }
-            gp.ui.addMessage(text);
-            gp.obj[i] = null;
         }
     }
 

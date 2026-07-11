@@ -6,7 +6,6 @@ import main.GamePanel;
 public class OBJ_Medicine extends Entity {
 
     GamePanel gp;
-    int value = 4;
 
     public OBJ_Medicine(GamePanel gp)
     {
@@ -15,6 +14,7 @@ public class OBJ_Medicine extends Entity {
 
         type = type_consumable;
         name = "Medicine";
+        value = 4;
         down1 = setup("/objects/medicine", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nHeal your wounds!\nReceive " + value + " HP";
     }
@@ -24,9 +24,6 @@ public class OBJ_Medicine extends Entity {
         gp.ui.currentDiaglogue = "Your drink the medicine!\n" +
                 "Your life has been recovered by " + value + " HP!";
         entity.life += value;
-        if (gp.player.life > gp.player.maxLife) {
-            gp.player.life = gp.player.maxLife;
-        }
         gp.playSE(1);
     }
 }

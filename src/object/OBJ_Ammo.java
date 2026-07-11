@@ -10,8 +10,17 @@ public class OBJ_Ammo extends Entity {
         super(gp);
         this.gp = gp;
 
+        type = type_pickupOnly;
         name = "Ammo";
+        value = 1;
+        down1 = setup("/projectile/bulletFull", gp.tileSize, gp.tileSize);
         image = setup("/projectile/bulletFull", gp.tileSize, gp.tileSize);
         image2 = setup("/projectile/bulletEmpty", gp.tileSize, gp.tileSize);
+    }
+
+    public void use(Entity entity) {
+        gp.playSE(10);
+        gp.ui.addMessage("Ammo +" + value);
+        entity.ammo += value;
     }
 }

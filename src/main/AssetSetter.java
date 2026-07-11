@@ -29,6 +29,14 @@ public class AssetSetter {
         gp.obj[i].worldX = gp.tileSize * 59;
         gp.obj[i].worldY = gp.tileSize * 56;
         i++;
+        gp.obj[i] = new OBJ_Heart(gp);
+        gp.obj[i].worldX = gp.tileSize * 58;
+        gp.obj[i].worldY = gp.tileSize * 56;
+        i++;
+        gp.obj[i] = new OBJ_Ammo(gp);
+        gp.obj[i].worldX = gp.tileSize * 57;
+        gp.obj[i].worldY = gp.tileSize * 56;
+        i++;
 
         // TOOLS
         gp.obj[i] = new OBJ_Axe(gp);

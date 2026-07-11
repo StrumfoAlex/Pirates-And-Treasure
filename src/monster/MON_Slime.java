@@ -3,6 +3,9 @@ package monster;
 import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
+import object.OBJ_Ammo;
+import object.OBJ_Coin;
+import object.OBJ_Heart;
 import object.OBJ_Rock;
 
 import java.util.Random;
@@ -80,8 +83,24 @@ public class MON_Slime extends Entity {
     }
 
     public void damageReaction() {
-
         actionLockCounter = 0;
         direction = gp.player.direction;
     }
+
+    public void checkDrop() {
+        // Cast a die
+        int i = new Random().nextInt(100)+1;
+
+        // set the monster drop
+        if (i < 50) {
+            dropItem(new OBJ_Coin(gp));
+        }
+        if (i >= 50 && i < 75) {
+            dropItem(new OBJ_Heart(gp));
+        }
+        if (i >= 75 && i < 100) {
+            dropItem(new OBJ_Ammo(gp));
+        }
+    }
+
 }
