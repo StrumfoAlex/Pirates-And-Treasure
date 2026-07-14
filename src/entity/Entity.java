@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
 public class Entity {
     GamePanel gp;
@@ -32,7 +31,7 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
 
-    String dialogues[] = new String[20];
+    String[] dialogues = new String[20];
     int dialogueIndex = 0;
 
     public BufferedImage image, image2, image3;
@@ -308,7 +307,7 @@ public class Entity {
 
             g2.drawImage(image, screenX, screenY, null);
 
-            changeAlpha(g2, 1f);;
+            changeAlpha(g2, 1f);
         }
     }
 

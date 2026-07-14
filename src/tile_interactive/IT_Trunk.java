@@ -1,6 +1,5 @@
 package tile_interactive;
 
-import entity.Entity;
 import main.GamePanel;
 
 import javax.swing.*;

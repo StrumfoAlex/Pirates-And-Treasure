@@ -6,10 +6,14 @@ import main.GamePanel;
 public class InteractiveTile extends Entity {
     GamePanel gp;
     public boolean destructible = false;
+    int col;
+    int row;
 
     public InteractiveTile(GamePanel gp, int col, int row) {
         super(gp);
         this.gp = gp;
+        this.col = col;
+        this.row = row;
     }
 
     public boolean isCorrectItem(Entity entity) {

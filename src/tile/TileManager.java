@@ -5,7 +5,6 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -62,7 +61,7 @@ public class TileManager {
             while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = br.readLine();
                 while (col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" ");
+                    String[] numbers = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
                     mapTileNum[col][row] = num;
                     col++;

@@ -2,15 +2,10 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 import object.*;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -108,7 +103,7 @@ public class Player extends Entity {
         if (currentWeapon.type == type_sword) {
             attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize,  gp.tileSize * 2);
             attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize,  gp.tileSize * 2);
-            attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize,  gp.tileSize * 2);;
+            attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize,  gp.tileSize * 2);
             attackDown2 = setup("/player/boy_attack_down_2", gp.tileSize,  gp.tileSize * 2);
             attackLeft1 = setup("/player/boy_attack_left_1", gp.tileSize * 2,  gp.tileSize);
             attackLeft2 = setup("/player/boy_attack_left_2", gp.tileSize * 2,  gp.tileSize);
@@ -118,7 +113,7 @@ public class Player extends Entity {
         else if (currentWeapon.type == type_axe) {
             attackUp1 = setup("/player/boy_axe_up_1", gp.tileSize,  gp.tileSize * 2);
             attackUp2 = setup("/player/boy_axe_up_2", gp.tileSize,  gp.tileSize * 2);
-            attackDown1 = setup("/player/boy_axe_down_1", gp.tileSize,  gp.tileSize * 2);;
+            attackDown1 = setup("/player/boy_axe_down_1", gp.tileSize,  gp.tileSize * 2);
             attackDown2 = setup("/player/boy_axe_down_2", gp.tileSize,  gp.tileSize * 2);
             attackLeft1 = setup("/player/boy_axe_left_1", gp.tileSize * 2,  gp.tileSize);
             attackLeft2 = setup("/player/boy_axe_left_2", gp.tileSize * 2,  gp.tileSize);
@@ -130,7 +125,7 @@ public class Player extends Entity {
     public void pistolImage() {
         up1 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
         up2 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
-        down1 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);;
+        down1 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);
         down2 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);
         left1 = setup("/player/boy_gun_left", gp.tileSize,  gp.tileSize);
         left2 = setup("/player/boy_gun_left", gp.tileSize,  gp.tileSize);

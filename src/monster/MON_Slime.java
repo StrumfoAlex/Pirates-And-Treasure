@@ -1,7 +1,6 @@
 package monster;
 
 import entity.Entity;
-import entity.Projectile;
 import main.GamePanel;
 import object.OBJ_Ammo;
 import object.OBJ_Coin;
@@ -61,13 +60,13 @@ public class MON_Slime extends Entity {
             if (i <= 25) {
                 direction = "up";
             }
-            else if (i > 25 && i <= 50) {
+            else if (i <= 50) {
                 direction = "down";
             }
-            else if (i > 50 && i <= 75) {
+            else if (i <= 75) {
                 direction = "left";
             }
-            else if (i > 75 && i <= 100) {
+            else {
                 direction = "right";
             }
 

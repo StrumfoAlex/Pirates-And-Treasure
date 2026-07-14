@@ -36,9 +36,11 @@ public class UI {
 
         try {
             InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+            assert is != null;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
 
             is = getClass().getResourceAsStream("/font/CONSOLA.TTF");
+            assert is != null;
             consolas = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -59,9 +61,6 @@ public class UI {
     }
 
     public void addMessage(String text) {
-//        message = text;
-//        messageOn = true;
-
         message.add(text);
         messageCounter.add(0);
     }
@@ -137,7 +136,7 @@ public class UI {
 
         // DRAW AMMO
         x = gp.tileSize / 2 - 7;
-        y = (int)(gp.tileSize * 1.75);
+        // y from above
         i = 0;
         while (i < gp.player.ammo) {
             g2.drawImage(ammo_full, x, y, null);
@@ -209,7 +208,7 @@ public class UI {
         }
 
         text = "LOAD GAME";
-        x = gp.screenWidth / 2  - gp.tileSize * 6;
+        // same x
         y += gp.tileSize;
         g2.drawString(text, x, y);
         if (commandNum == 1) {
@@ -217,7 +216,7 @@ public class UI {
         }
 
         text = "QUIT";
-        x = gp.screenWidth / 2  - gp.tileSize * 6;
+        // same x
         y += gp.tileSize;
         g2.drawString(text, x, y);
         if (commandNum == 2) {
@@ -439,13 +438,11 @@ public class UI {
 
     public int getXforCenteredText(String text) {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth / 2 - length / 2;
-        return x;
+        return gp.screenWidth / 2 - length / 2;
     }
 
     public int getXForAlignToRightText(String text, int tailX) {
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = tailX - length;
-        return x;
+        return tailX - length;
     }
 }
