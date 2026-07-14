@@ -42,11 +42,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public Entity obj[] = new Entity[20];
-    public Entity npc[] = new Entity[10];
-    public Entity monster[] = new Entity[20];
-    public InteractiveTile iTile[] = new InteractiveTile[50];
+    public Entity[] obj = new Entity[20];
+    public Entity[] npc = new Entity[10];
+    public Entity[] monster = new Entity[20];
+    public InteractiveTile[] iTile = new InteractiveTile[50];
     public ArrayList<Entity> projectileList = new ArrayList<>();
+    public ArrayList<Entity> particleList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<Entity>();
 
 
@@ -81,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/FPS; // 0.01666 seconds
+        double drawInterval = (double) 1000000000 /FPS; // 0.01666 seconds
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -149,6 +150,17 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             }
+            // PARTICLES
+            for (int i = 0; i < particleList.size(); i++) {
+                if (particleList.get(i) != null) {
+                    if (particleList.get(i).alive) {
+                        particleList.get(i).update();
+                    }
+                    if (!particleList.get(i).alive) {
+                        particleList.remove(i);
+                    }
+                }
+            }
             // INTERACTIVE TILES
             for (int i = 0; i < iTile.length; i++) {
                 if (iTile[i] != null) {
@@ -209,7 +221,13 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
 
-            for  (Entity entity : projectileList) {
+            for (Entity entity : projectileList) {
+                if (entity != null) {
+                    entityList.add(entity);
+                }
+            }
+
+            for (Entity entity : particleList) {
                 if (entity != null) {
                     entityList.add(entity);
                 }

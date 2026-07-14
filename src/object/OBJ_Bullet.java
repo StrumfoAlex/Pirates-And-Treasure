@@ -4,6 +4,8 @@ import entity.Entity;
 import entity.Projectile;
 import main.GamePanel;
 
+import java.awt.*;
+
 public class OBJ_Bullet extends Projectile {
 
     GamePanel gp;
@@ -38,5 +40,21 @@ public class OBJ_Bullet extends Projectile {
 
     public void subtractResource(Entity user) {
         user.ammo -= useCost;
+    }
+
+    public Color getParticleColor() {
+        return new Color(125, 78, 223);
+    }
+
+    public int getParticleSize() {
+        return 10; // 10 pixels
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLife() {
+        return 20;
     }
 }
