@@ -72,7 +72,20 @@ public class Player extends Entity {
         defense = getDefense();
     }
 
+    public void setDefaultPositions() {
+        worldX = gp.tileSize * 50; // 23 pt map1
+        worldY = gp.tileSize * 50; // 21 pt map1
+        direction = "down";
+    }
+
+    public void restoreLifeAndAmmo() {
+        life = maxLife;
+        ammo = maxAmmo;
+        invincible = false;
+    }
+
     public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
         inventory.add(new OBJ_Key(gp));
@@ -266,6 +279,11 @@ public class Player extends Entity {
         if (ammo > maxAmmo) {
             ammo = maxAmmo;
         }
+
+        if (life <= 0) {
+            gp.gameState = gp.gameOverState;
+            // gp.playSE(x);
+        }
     }
 
     private void attacking() {
@@ -377,7 +395,7 @@ public class Player extends Entity {
             defense = getDefense();
             gp.playSE(1);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDiaglogue = "You are level " + level + " now!\n"
+            gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "Press C to see your stats!";
             life = maxLife;
         }
@@ -459,7 +477,7 @@ public class Player extends Entity {
                 else {
                     //gp.ui.addMessage("Your health is already full!");
                     gp.gameState = gp.dialogueState;
-                    gp.ui.currentDiaglogue = "Your health is already full!";
+                    gp.ui.currentDialogue = "Your health is already full!";
                 }
             }
         }

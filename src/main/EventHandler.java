@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.*;
-
 public class EventHandler {
     GamePanel gp;
     EventRect[][] eventRect;
@@ -80,7 +78,7 @@ public class EventHandler {
     public void damageBush(int col, int row, int gameState) {
         gp.gameState = gameState;
         gp.playSE(7);
-        gp.ui.currentDiaglogue = "You ate a toxic berry!";
+        gp.ui.currentDialogue = "You ate a toxic berry!";
         gp.player.life -= 1;
         //eventRect[col][row].eventDone = true;
         canTouchEvent = false;
@@ -89,7 +87,7 @@ public class EventHandler {
         if (gp.keyH.enterPressed)
         {
             gp.gameState = gameState;
-            gp.ui.currentDiaglogue = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!";
+            gp.ui.currentDialogue = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!";
             gp.player.life = gp.player.maxLife;
             gp.player.ammo =  gp.player.maxAmmo;
             gp.aSetter.setMonster();
@@ -97,7 +95,7 @@ public class EventHandler {
     }
     public void teleport(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDiaglogue = "You stepped on a teleporter!\nYou have been teleported to a new location!";
+        gp.ui.currentDialogue = "You stepped on a teleporter!\nYou have been teleported to a new location!";
         gp.player.worldX = gp.tileSize * 40;
         gp.player.worldY = gp.tileSize * 30;
 

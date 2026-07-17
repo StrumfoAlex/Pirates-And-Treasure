@@ -21,7 +21,7 @@ public class OBJ_Medicine extends Entity {
     
     public void use(Entity entity) {
         gp.gameState = gp.dialogueState;
-        gp.ui.currentDiaglogue = "Your drink the medicine!\n" +
+        gp.ui.currentDialogue = "Your drink the medicine!\n" +
                 "Your life has been recovered by " + value + " HP!";
         entity.life += value;
         gp.playSE(1);

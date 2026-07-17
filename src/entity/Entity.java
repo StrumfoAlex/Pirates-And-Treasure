@@ -93,7 +93,7 @@ public class Entity {
         if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
-        gp.ui.currentDiaglogue = dialogues[dialogueIndex];
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
 
         switch (gp.player.direction) {

@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class UI {
@@ -20,7 +19,7 @@ public class UI {
     //public String message = "";
     //int messageCounter = 0;
     public boolean gameFinished = false;
-    public String currentDiaglogue = "";
+    public String currentDialogue = "";
     public int commandNum = 0;
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
@@ -100,6 +99,10 @@ public class UI {
         // OPTIONS STATE
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
+        }
+        // GAME OVER STATE
+        if (gp.gameState == gp.gameOverState) {
+            drawGameOverScreen();
         }
     }
 
@@ -251,7 +254,7 @@ public class UI {
         x += gp.tileSize;
         y += gp.tileSize;
 
-        for (String line : currentDiaglogue.split("\n")) {
+        for (String line : currentDialogue.split("\n")) {
             g2.drawString(line, x, y);
             y += 40;
         }
@@ -427,6 +430,45 @@ public class UI {
 
     }
 
+    public void drawGameOverScreen() {
+        g2.setColor(new Color(0, 0, 0, 150));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x;
+        int y;
+        String text;
+        g2.setFont(maruMonica);
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 140f));
+
+        text = "Game Over";
+        // Shadow
+        g2.setColor(Color.black);
+        x = getXforCenteredText(text);
+        y = gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        // Main
+        g2.setColor(Color.white);
+        g2.drawString(text, x - 4, y - 4);
+
+        // Retry
+        g2.setFont(g2.getFont().deriveFont(70f));
+        text = "Retry";
+        x = getXforCenteredText(text);
+        y += gp.tileSize * 4;
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawString(">", x - 40, y);
+        }
+        // Quit
+        text = "Quit";
+        x = getXforCenteredText(text);
+        y += 80;
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawString(">", x - 40, y);
+        }
+    }
+
     public void drawOptionsScreen() {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
@@ -575,8 +617,8 @@ public class UI {
     public void options_endGameConfirmation(int frameX, int frameY) {
         int textX = frameX + gp.tileSize;
         int textY = frameY + gp.tileSize * 3;
-        currentDiaglogue = "Quit the game and \nreturn to the title screen?";
-        for (String line: currentDiaglogue.split("\n")) {
+        currentDialogue = "Quit the game and \nreturn to the title screen?";
+        for (String line: currentDialogue.split("\n")) {
             g2.drawString(line, textX, textY);
             textY += 40;
         }
