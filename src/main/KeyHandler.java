@@ -115,7 +115,14 @@ public class KeyHandler implements KeyListener {
             debug = !debug;
         }
         if (code == KeyEvent.VK_I) {
-            gp.tileM.loadMap("/maps/world02.txt");
+            switch (gp.currentMap) {
+                case 0:
+                    gp.tileM.loadMap("/maps/world02.txt", 0);
+                    break;
+                case 1:
+                    gp.tileM.loadMap("/maps/ship01.txt", 1);
+                    break;
+            }
         }
 
         // If player attack
