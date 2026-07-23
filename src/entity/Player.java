@@ -14,9 +14,6 @@ public class Player extends Entity {
     public final int screenY;
 
     //public int hasKey = 0;
-
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 24;
     
     public int pistolImageCounter = 0;
     public final int pistolImageDuration = 15; // frames to display pistol image
@@ -63,7 +60,7 @@ public class Player extends Entity {
         dexterity = 1; // more dexterity -> less damage received
         exp = 0;
         nextLevelExp = 5;
-        coins = 0;
+        coins = 500;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         projectile = new OBJ_Bullet(gp);
@@ -456,7 +453,7 @@ public class Player extends Entity {
     }
 
     public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOnSlot();
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
         if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);

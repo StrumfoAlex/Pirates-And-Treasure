@@ -17,6 +17,7 @@ public class OBJ_Medicine extends Entity {
         value = 4;
         down1 = setup("/objects/medicine", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nHeal your wounds!\nReceive " + value + " HP";
+        price = 25;
     }
     
     public void use(Entity entity) {

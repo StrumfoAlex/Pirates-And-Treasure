@@ -1,5 +1,7 @@
 package main;
 
+import entity.Entity;
+
 public class EventHandler {
     GamePanel gp;
     EventRect[][][] eventRect;
@@ -55,6 +57,7 @@ public class EventHandler {
              else if (hit(0, 48, 48, "any")) { healingBush(gp.dialogueState); }
              else if (hit(0, 11, 50, "any")) { teleport(1, 53, 50); }
              else if (hit(1, 53, 50, "any")) { teleport(0, 11, 50); }
+             else if (hit(1, 50, 50, "left")) { speak(gp.npc[1][0]); }
          }
         // directia poate fi "up", "down", "left", "right", sau "any"
         if (hit(0, 46, 48, "any")) { teleport(1, 53, 50); }
@@ -117,5 +120,12 @@ public class EventHandler {
         tempCol = col;
         tempRow = row;
         canTouchEvent = false;
+    }
+
+    public void speak(Entity entity) {
+        if (gp.keyH.enterPressed) {
+            gp.gameState = gp.dialogueState;
+            entity.speak();
+        }
     }
 }

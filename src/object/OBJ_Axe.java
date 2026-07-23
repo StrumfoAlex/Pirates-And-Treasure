@@ -18,6 +18,7 @@ public class OBJ_Axe extends Entity {
         attackArea.height = 30;
         down1 = setup("/objects/axe", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nA tool for cutting or hitting\nenemies.";
+        price = 175;
     }
 
 }

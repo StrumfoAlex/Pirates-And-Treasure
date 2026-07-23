@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_OldMan;
+import entity.NPC_Smuggler;
 import monster.MON_Slime;
 import object.*;
 import tile_interactive.IT_DryTree;
@@ -57,10 +58,10 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 44;
 
         // test a new object in the ship map
-        mapNum = 1;
-        gp.obj[mapNum][i] = new OBJ_Medicine(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 52;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 50;
+//        mapNum = 1;
+//        gp.obj[mapNum][i] = new OBJ_Medicine(gp);
+//        gp.obj[mapNum][i].worldX = gp.tileSize * 52;
+//        gp.obj[mapNum][i].worldY = gp.tileSize * 50;
 
         // DOORS
 //        gp.obj[i] = new OBJ_Door(gp);
@@ -80,6 +81,11 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_OldMan(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize * 60;
         gp.npc[mapNum][i].worldY = gp.tileSize * 48;
+
+        mapNum = 1;
+        gp.npc[mapNum][i] = new NPC_Smuggler(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize * 48;
+        gp.npc[mapNum][i].worldY = gp.tileSize * 50;
     }
 
     public void setMonster() {
