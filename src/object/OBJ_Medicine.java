@@ -20,11 +20,20 @@ public class OBJ_Medicine extends Entity {
         price = 25;
     }
     
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.gameState = gp.dialogueState;
-        gp.ui.currentDialogue = "Your drink the medicine!\n" +
-                "Your life has been recovered by " + value + " HP!";
-        entity.life += value;
-        gp.playSE(1);
+
+        if (gp.player.life != gp.player.maxLife) {
+            gp.ui.currentDialogue = "Your drink the medicine!\n" +
+                    "Your life has been recovered by " + value + " HP!";
+            entity.life += value;
+            gp.playSE(1);
+            return true;
+        }
+        else {
+            //gp.ui.addMessage("Your health is already full!");
+            gp.ui.currentDialogue = "Your health is already full!";
+            return false;
+        }
     }
 }

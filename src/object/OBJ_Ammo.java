@@ -18,9 +18,11 @@ public class OBJ_Ammo extends Entity {
         image2 = setup("/projectile/bulletEmpty", gp.tileSize, gp.tileSize);
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSE(10);
         gp.ui.addMessage("Ammo +" + value);
         entity.ammo += value;
+
+        return true;
     }
 }

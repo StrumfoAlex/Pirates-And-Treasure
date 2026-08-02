@@ -32,6 +32,8 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 59;
         gp.obj[mapNum][i].worldY = gp.tileSize * 56;
         i++;
+
+        // HELPFUL RESOURCES (may delete later)
         gp.obj[mapNum][i] = new OBJ_Heart(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 58;
         gp.obj[mapNum][i].worldY = gp.tileSize * 56;
@@ -56,6 +58,7 @@ public class AssetSetter {
         gp.obj[mapNum][i] = new OBJ_Medicine(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 64;
         gp.obj[mapNum][i].worldY = gp.tileSize * 44;
+        i++;
 
         // test a new object in the ship map
 //        mapNum = 1;
@@ -64,14 +67,25 @@ public class AssetSetter {
 //        gp.obj[mapNum][i].worldY = gp.tileSize * 50;
 
         // DOORS
-//        gp.obj[i] = new OBJ_Door(gp);
-//        gp.obj[i].worldX = gp.tileSize * 63;
-//        gp.obj[i].worldY = gp.tileSize * 42;
-//        i++;
-//
-//        gp.obj[i] = new OBJ_Door(gp);
-//        gp.obj[i].worldX = gp.tileSize * 63;
-//        gp.obj[i].worldY = gp.tileSize * 46;
+        gp.obj[mapNum][i] = new OBJ_Door(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 63;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 42;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Door(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 63;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 46;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Door(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 39;
+        i++;
+
+        // CHEST
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
+        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 36;
     }
 
     public void setNPC() {

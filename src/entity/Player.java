@@ -6,6 +6,7 @@ import object.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -448,6 +449,12 @@ public class Player extends Entity {
                 gp.obj[gp.currentMap][i].use(this);
                 gp.obj[gp.currentMap][i] = null;
             }
+            // OBSTACLE
+            else if (gp.obj[gp.currentMap][i].type == type_obstacle) {
+                if (keyH.enterPressed) {
+                    gp.obj[gp.currentMap][i].interact();
+                }
+            }
             // INVENTORY ITEMS
             else {
                 String text;
@@ -494,14 +501,8 @@ public class Player extends Entity {
                 defense = getDefense();
             }
             if (selectedItem.type == type_consumable) {
-                if (gp.player.life != gp.player.maxLife) {
-                    selectedItem.use(this);
+                if (selectedItem.use(this)) {
                     inventory.remove(itemIndex);
-                }
-                else {
-                    //gp.ui.addMessage("Your health is already full!");
-                    gp.gameState = gp.dialogueState;
-                    gp.ui.currentDialogue = "Your health is already full!";
                 }
             }
         }
