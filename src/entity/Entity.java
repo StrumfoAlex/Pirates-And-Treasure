@@ -39,6 +39,8 @@ public class Entity {
     public BufferedImage image, image2, image3;
     public boolean collision = false;
 
+    public boolean knockBack = false;
+
     // COUNTER
     public int actionLockCounter = 0;
     public int spriteCounter = 0;
@@ -46,11 +48,13 @@ public class Entity {
     public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTES
     public int maxLife;
     public int life;
     public String name;
+    public int defaultSpeed;
     public int speed;
     public int maxAmmo;
     public int ammo;
@@ -76,6 +80,7 @@ public class Entity {
     public String description = "";
     public int useCost;
     public int price;
+    public int knockBackPower = 0;
 
     // TYPE
     public int type; // 0 = player, 1 = npc, 2 = monster
@@ -181,24 +186,50 @@ public class Entity {
     }
 
     public void update() {
-        setAction();
-        checkCollision();
+        if (knockBack) {
+            checkCollision();
 
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if (!collisionOn) {
-            switch (direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+            if (collisionOn) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+            else if (!collisionOn) {
+                switch (gp.player.direction) {
+                    case "up" -> worldY -= speed;
+                    case "down" -> worldY += speed;
+                    case "left" -> worldX -= speed;
+                    case "right" -> worldX += speed;
+                }
+            }
+
+            knockBackCounter++;
+            if (knockBackCounter == 10) {
+                knockBackCounter = 0;
+                knockBack = false;
+                speed = defaultSpeed;
+            }
+        }
+        else {
+            setAction();
+            checkCollision();
+
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            if (!collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
         }
 
@@ -366,8 +397,8 @@ public class Entity {
 
         if (gp.pFinder.search()) {
             // next worldX & worldY
-            int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
-            int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+            int nextX = gp.pFinder.pathList.getFirst().col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.getFirst().row * gp.tileSize;
 
             // entity's solidArea position
             int enLeftX = worldX + solidArea.x;

@@ -19,6 +19,7 @@ public class OBJ_Axe extends Entity {
         down1 = setup("/objects/axe", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nA tool for cutting or hitting\nenemies.";
         price = 175;
+        knockBackPower = 10;
     }
 
 }
