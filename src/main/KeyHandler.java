@@ -144,12 +144,12 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void dialogueState(int code) {
-        if (code == KeyEvent.VK_ENTER) {
+        if (code == KeyEvent.VK_ENTER  || code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
     }
     public void characterState(int code) {
-        if (code == KeyEvent.VK_C) {
+        if (code == KeyEvent.VK_C || code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.playState;
         }
 

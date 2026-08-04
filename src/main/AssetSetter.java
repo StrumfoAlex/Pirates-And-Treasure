@@ -59,6 +59,14 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldX = gp.tileSize * 64;
         gp.obj[mapNum][i].worldY = gp.tileSize * 44;
         i++;
+        gp.obj[mapNum][i] = new OBJ_Medicine(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 63;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 44;
+        i++;
+        gp.obj[mapNum][i] = new OBJ_Medicine(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 62;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 44;
+        i++;
 
         // test a new object in the ship map
 //        mapNum = 1;

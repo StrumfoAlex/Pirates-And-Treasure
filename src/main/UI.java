@@ -429,6 +429,25 @@ public class UI {
 
             // ITEM IMAGE
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+
+            // DISPLAY AMOUNT
+            if (entity == gp.player && entity.inventory.get(i).amount > 1) {
+                g2.setFont(g2.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+                String s = "" + entity.inventory.get(i).amount;
+
+                amountX = getXForAlignToRightText(s, slotX + 66);
+                amountY = slotY + gp.tileSize;
+
+                // SHADOW
+                g2.setColor(new Color(60, 60, 60));
+                g2.drawString(s, amountX, amountY);
+                // NUMBER
+                g2.setColor(Color.white);
+                g2.drawString(s, amountX - 3, amountY - 3);
+
+            }
         }
 
         // CURSOR
@@ -806,18 +825,18 @@ public class UI {
                     currentDialogue = "You need more coins to buy that!";
                     drawDialogueScreen();
                 }
-                if (gp.player.inventory.size() == gp.player.maxInventorySize) {
-                    subState = 0;
-                    gp.gameState = gp.dialogueState;
-                    currentDialogue = "Your inventory is full!";
-                }
                 else {
-                    gp.player.coins -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex));
+                    if (gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
+                        gp.player.coins -= npc.inventory.get(itemIndex).price;
+                    }
+                    else {
+                        subState = 0;
+                        gp.gameState = gp.dialogueState;
+                        currentDialogue = "Your inventory is full!";
+                    }
                 }
             }
         }
-
     }
 
     public void trade_sell() {
@@ -863,7 +882,12 @@ public class UI {
                     currentDialogue = "Cannot sell an equipped item!";
                 }
                 else {
-                    gp.player.inventory.remove(itemIndex);
+                    if (gp.player.inventory.get(itemIndex).amount > 1) {
+                        gp.player.inventory.get(itemIndex).amount--;
+                    }
+                    else  {
+                        gp.player.inventory.remove(itemIndex);
+                    }
                     gp.player.coins += price;
                 }
             }

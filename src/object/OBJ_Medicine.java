@@ -18,6 +18,7 @@ public class OBJ_Medicine extends Entity {
         down1 = setup("/objects/medicine", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nHeal your wounds!\nReceive " + value + " HP";
         price = 25;
+        stackable = true;
     }
     
     public boolean use(Entity entity) {
