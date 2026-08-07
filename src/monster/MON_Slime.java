@@ -25,7 +25,7 @@ public class MON_Slime extends Entity {
         speed = defaultSpeed;
         maxLife = 4;
         life = maxLife;
-        attack = 5;
+        attack = 4;
         defense = 0;
         exp = 3;
         projectile = new OBJ_Rock(gp);

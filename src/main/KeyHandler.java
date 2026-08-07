@@ -59,6 +59,11 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.tradeState) {
             tradeState(code);
         }
+
+        // MAP STATE
+        else if (gp.gameState == gp.mapState) {
+            mapState(code);
+        }
     }
 
     public void titleState(int code) {
@@ -113,6 +118,18 @@ public class KeyHandler implements KeyListener {
         // Option menu
         if (code == KeyEvent.VK_ESCAPE) {
             gp.gameState = gp.optionsState;
+        }
+        if (code == KeyEvent.VK_M) {
+            gp.gameState = gp.mapState;
+        }
+        if (code == KeyEvent.VK_E) {
+            if (!gp.map.miniMapOn)
+            {
+                gp.map.miniMapOn = true;
+            }
+            else {
+                gp.map.miniMapOn = false;
+            }
         }
 
         //Debug for seeing how long it takes to draw
@@ -243,6 +260,12 @@ public class KeyHandler implements KeyListener {
                 gp.stopMusic();
                 gp.restart();
             }
+        }
+    }
+
+    public void mapState(int code) {
+        if (code == KeyEvent.VK_M || code == KeyEvent.VK_ESCAPE) {
+            gp.gameState = gp.playState;
         }
     }
 

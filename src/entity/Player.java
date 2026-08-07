@@ -62,7 +62,7 @@ public class Player extends Entity {
         dexterity = 1; // more dexterity -> less damage received
         exp = 0;
         nextLevelExp = 5;
-        coins = 500;
+        coins = 50;
         currentWeapon = new OBJ_Sword_Normal(gp);
         currentShield = new OBJ_Shield_Wood(gp);
         projectile = new OBJ_Bullet(gp);
@@ -422,7 +422,7 @@ public class Player extends Entity {
             gp.gameState = gp.dialogueState;
             gp.ui.currentDialogue = "You are level " + level + " now!\n"
                     + "Press C to see your stats!";
-            life = maxLife;
+            //life = maxLife; to make full life on lvl up
         }
     }
 

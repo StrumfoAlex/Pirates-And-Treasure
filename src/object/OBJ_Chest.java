@@ -17,7 +17,7 @@ public class OBJ_Chest extends Entity
         type = type_obstacle;
         name = "Chest";
         image = setup("/objects/chest", gp.tileSize,  gp.tileSize);
-        image2 = setup("/objects/chest", gp.tileSize,  gp.tileSize); // open chest
+        image2 = setup("/objects/chest_opened", gp.tileSize,  gp.tileSize);
         down1 = image;
         collision = true;
 
@@ -37,13 +37,14 @@ public class OBJ_Chest extends Entity
             gp.playSE(2);
 
             StringBuilder sb = new StringBuilder();
-            sb.append("You open the chest and find a ").append(loot.name).append("!"); // is also ok "" + name + ""
+            sb.append("You open the chest and find a ").append(loot.name).append(" and 500 coins!"); // is also ok "" + name + ""
 
             if (!gp.player.canObtainItem(loot)) {
                 sb.append("\n\nBut your inventory is full!\nYou cannot carry any more!");
             }
             else {
-                sb.append("\nYou obtain the ").append(loot.name).append("!");
+                sb.append("\nYou obtain the ").append(loot.name).append("!\nAnd 500 coins!");
+                gp.player.coins += 500;
                 down1 = image2;
                 opened = true;
             }

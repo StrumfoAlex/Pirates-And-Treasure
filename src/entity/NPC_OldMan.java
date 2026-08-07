@@ -28,9 +28,18 @@ public class NPC_OldMan extends Entity {
     public void setDialogue() {
         dialogues[0] = "Hello, young pirate!";
         dialogues[1] = "So you've come to this island to find the treasure?";
-        dialogues[2] = "I used to be a great adventurer back in the day.";
-        dialogues[3] = "But now I just stay here and talk to people like you.";
-        dialogues[4] = "Good luck on your journey!";
+        dialogues[2] = "I used to be a great adventurer back in the day.\n" +
+                        "But now I just stay here and talk to people like you.";
+        dialogues[3] = "You seem like you need some help, young pirate!\n" +
+                        "So I have a deal for you!";
+        dialogues[4] = "Here is my house where you can find some old stuff.\n" +
+                        "You can have all that is in the house with one condition.";
+        dialogues[5] = "If you manage to find the treasure you need to give me\na part of it!";
+        dialogues[6] = """
+                Go around on the island and find keys to unlock
+                door houses and chests.
+                And maybe some clues to find the map!""";
+        dialogues[7] = "Good luck on your journey!";
     }
 
     public void setAction() {

@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class UI {
     GamePanel gp;
     Graphics2D g2;
-    Font consolas, maruMonica;
+    Font consolas;
+    public Font maruMonica;
     //BufferedImage keyImage;
     BufferedImage heart_full, heart_half, heart_blank, ammo_full, ammo_blank, coin;
     public boolean messageOn = false;
@@ -634,23 +635,27 @@ public class UI {
         g2.drawString(text, textX, textY);
 
         textX = frameX + gp.tileSize;
-        textY += gp.tileSize * 2;
+        textY += gp.tileSize;
         g2.drawString("Move", textX, textY); textY += gp.tileSize;
         g2.drawString("Confirm", textX, textY); textY += gp.tileSize;
         g2.drawString("Attack", textX, textY); textY += gp.tileSize;
         g2.drawString("Shoot", textX, textY); textY += gp.tileSize;
         g2.drawString("Character screen", textX, textY); textY += gp.tileSize;
         g2.drawString("Pause", textX, textY); textY += gp.tileSize;
+        g2.drawString("Full Map", textX, textY); textY += gp.tileSize;
+        g2.drawString("Mini Map", textX, textY); textY += gp.tileSize;
         g2.drawString("Options", textX, textY);
 
         textX = frameX + gp.tileSize * 7;
-        textY = frameY + gp.tileSize * 3;
+        textY = frameY + gp.tileSize * 2;
         g2.drawString("WASD", textX, textY); textY += gp.tileSize;
         g2.drawString("ENTER", textX, textY); textY += gp.tileSize;
         g2.drawString("J", textX, textY); textY += gp.tileSize;
         g2.drawString("K", textX, textY); textY += gp.tileSize;
         g2.drawString("C", textX, textY); textY += gp.tileSize;
         g2.drawString("P", textX, textY); textY += gp.tileSize;
+        g2.drawString("M", textX, textY); textY += gp.tileSize;
+        g2.drawString("E", textX, textY); textY += gp.tileSize;
         g2.drawString("ESC", textX, textY);
 
         // Back

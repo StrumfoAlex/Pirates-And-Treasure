@@ -13,7 +13,7 @@ public class OBJ_Coin extends Entity {
 
         type = type_pickupOnly;
         name = "Coin";
-        value = 1;
+        value = 20;
         down1 = setup("/objects/coin", gp.tileSize, gp.tileSize);
     }
 
