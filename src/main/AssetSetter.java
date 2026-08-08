@@ -83,7 +83,7 @@ public class AssetSetter {
         i++;
 
         // CHEST
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp)); // any prize here
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_MapX(gp)); // any prize here
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
         gp.obj[mapNum][i].worldY = gp.tileSize * 36;
     }

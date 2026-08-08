@@ -2,18 +2,35 @@ package tile;
 
 import main.GamePanel;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Map extends TileManager{
     GamePanel gp;
     BufferedImage[] worldMap;
+    BufferedImage miniMapImage;
     public boolean miniMapOn = false;
 
     public Map(GamePanel gp) {
         super(gp);
         this.gp = gp;
         createWorldMap();
+        // Try to load the small "map" image from resources (classpath first, then file system)
+        try (java.io.InputStream is = getClass().getResourceAsStream("/res/objects/map.png")) {
+            if (is != null) {
+                miniMapImage = ImageIO.read(is);
+            } else {
+                // Fallback to file system relative path
+                miniMapImage = ImageIO.read(new File("res/objects/map.png"));
+            }
+        } catch (IOException e) {
+            // If loading fails, leave miniMapImage null (map will not be drawn)
+            System.err.println("Failed to load mini map image: " + e.getMessage());
+            miniMapImage = null;
+        }
     }
 
     public void createWorldMap() {
@@ -53,6 +70,10 @@ public class Map extends TileManager{
         int height = 800;
         int x = gp.screenWidth / 2 - width / 2;
         int y = gp.screenHeight / 2 - height / 2;
+
+        if (miniMapImage != null) {
+            g2.drawImage(miniMapImage, 50, -50, width + 400, height + 200, null);
+        }
         g2.drawImage(worldMap[gp.currentMap], x, y, width, height, null);
 
         // Draw Player
@@ -61,6 +82,16 @@ public class Map extends TileManager{
         int playerY = (int)(y + gp.player.worldY / scale) -10;
         int playerSize = (int)(gp.tileSize / scale) + 15;
         g2.drawImage(gp.player.down1, playerX, playerY, playerSize, playerSize, null);
+
+        // Draw X is player has the Treasure Map
+        if (gp.player.searchItemInInventory("Treasure Map") != 999) {
+            g2.setColor(Color.RED);
+            g2.setFont(gp.ui.maruMonica.deriveFont(60f));
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60f));
+            x = gp.screenWidth - 425;
+            y = 275;
+            g2.drawString("x", x, y);
+        }
 
         // Hint
         g2.setFont(gp.ui.maruMonica.deriveFont(32f));
@@ -76,6 +107,10 @@ public class Map extends TileManager{
             int x = gp.screenWidth - width - 50;
             int y = 50;
 
+            // Draw background map image if available (from res/objects/map.png)
+            if (miniMapImage != null) {
+                g2.drawImage(miniMapImage, x - 50, y - 30, width + 100, height + 70, null);
+            }
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             g2.drawImage(worldMap[gp.currentMap], x, y, width, height, null);
 
@@ -87,6 +122,16 @@ public class Map extends TileManager{
             g2.drawImage(gp.player.down1, playerX, playerY, playerSize, playerSize, null);
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            // Draw X is player has the Treasure Map
+            if (gp.player.searchItemInInventory("Treasure Map") != 999) {
+                g2.setColor(Color.RED);
+                g2.setFont(gp.ui.maruMonica.deriveFont(32f));
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32f));
+                x = gp.screenWidth - 115;
+                y = 150;
+                g2.drawString("x", x, y);
+            }
         }
     }
 }
