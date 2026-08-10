@@ -64,6 +64,11 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 56;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Tent(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 56;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 55;
+        i++;
+
         // RESOURCES
         gp.obj[mapNum][i] = new OBJ_Medicine(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 64;

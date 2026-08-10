@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
     Map map = new Map(this);
-    EnvironmentManager eManager = new EnvironmentManager(this);
+    public EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int mapState = 9;
+    public final int sleepState = 10;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

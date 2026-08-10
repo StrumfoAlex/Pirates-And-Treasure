@@ -134,7 +134,7 @@ public class Player extends Entity {
         }
     }
 
-    public void pistolImage() {
+    public void getPistolImage() {
         up1 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
         up2 = setup("/player/boy_gun_up", gp.tileSize,  gp.tileSize);
         down1 = setup("/player/boy_gun_down", gp.tileSize,  gp.tileSize);
@@ -146,6 +146,17 @@ public class Player extends Entity {
 
         // Set counter to keep pistol images displayed for a duration
         pistolImageCounter = pistolImageDuration;
+    }
+
+    public void getSleepingImage(BufferedImage image) {
+        up1 = image;
+        up2 = image;
+        down1 = image;
+        down2 = image;
+        left1 = image;
+        left2 = image;
+        right1 = image;
+        right2 = image;
     }
 
     public void update() {
@@ -235,7 +246,7 @@ public class Player extends Entity {
             && projectile.haveResource(this)) {
 
             // DRAW THE PLAYER SHOOTING IMAGES
-            pistolImage();
+            getPistolImage();
 
             // SET DEFAULT COORDINATES, DIRECTION AND USER
             projectile.set(worldX, worldY, direction, true, this);
