@@ -3,6 +3,7 @@ package main;
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import environment.EnvironmentManager;
 import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
@@ -44,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pFinder = new PathFinder(this);
     Map map = new Map(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT
@@ -84,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setMonster();
         aSetter.setInteractiveTile();
+        eManager.setup();
         gameState = titleState;
     }
 
@@ -195,6 +198,8 @@ public class GamePanel extends JPanel implements Runnable {
                     iTile[currentMap][i].update();
                 }
             }
+
+            eManager.update();
         }
         if (gameState == pauseState)
         {
@@ -283,7 +288,10 @@ public class GamePanel extends JPanel implements Runnable {
             // MINI MAP
             map.drawMiniMap(g2);
 
-            //UI
+            // ENVIRONMENT
+            eManager.draw(g2);
+
+            // UI
             ui.draw(g2);
         }
 

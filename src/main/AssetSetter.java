@@ -54,6 +54,16 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 40;
         i++;
 
+        gp.obj[mapNum][i] = new OBJ_Lamp(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 62;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 44;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Torch(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 56;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 56;
+        i++;
+
         // RESOURCES
         gp.obj[mapNum][i] = new OBJ_Medicine(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 64;

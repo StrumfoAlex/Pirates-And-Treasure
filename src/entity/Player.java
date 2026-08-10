@@ -14,10 +14,10 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    //public int hasKey = 0;
-    
     public int pistolImageCounter = 0;
     public final int pistolImageDuration = 15; // frames to display pistol image
+
+    public boolean lightUpdated = false;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         super(gp);
@@ -497,6 +497,15 @@ public class Player extends Entity {
             if (selectedItem.type == type_shield) {
                 currentShield = selectedItem;
                 defense = getDefense();
+            }
+            if (selectedItem.type == type_light) {
+                if (currentLight == selectedItem) {
+                    currentLight = null;
+                }
+                else {
+                    currentLight = selectedItem;
+                }
+                lightUpdated = true;
             }
             if (selectedItem.type == type_consumable) {
                 if (selectedItem.use(this)) {

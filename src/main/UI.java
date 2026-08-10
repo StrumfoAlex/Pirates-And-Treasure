@@ -1,5 +1,6 @@
 package main;
 import entity.Entity;
+import entity.NPC_Smuggler;
 import object.OBJ_Ammo;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
@@ -422,7 +423,8 @@ public class UI {
 
             // EQUIP HIGHLIGHT (draw on top of background)
             if (entity.inventory.get(i) == entity.currentWeapon ||
-                    entity.inventory.get(i) == entity.currentShield)
+                entity.inventory.get(i) == entity.currentShield ||
+                entity.inventory.get(i) == entity.currentLight)
             {
                 g2.setColor(new Color(240, 190, 90));
                 g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
