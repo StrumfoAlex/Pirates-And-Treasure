@@ -11,6 +11,7 @@ public class OBJ_Tent extends Entity {
         this.gp = gp;
         type = type_consumable;
         name = "Tent";
+        description = "[" + name + "]\n\nRest at night and recover your\nhealth!";
         down1 = setup("/objects/tent", gp.tileSize, gp.tileSize);
         price = 300;
         stackable = true;
@@ -28,7 +29,9 @@ public class OBJ_Tent extends Entity {
             return true;
         }
         else {
-            gp.ui.addMessage("Cannot sleep during the day!");
+//            gp.ui.addMessage("Cannot sleep during the day!");
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "Cannot sleep during the day!";
             return false;
         }
 

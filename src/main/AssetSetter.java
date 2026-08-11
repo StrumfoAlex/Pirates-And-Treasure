@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC_OldMan;
 import entity.NPC_Smuggler;
+import monster.MON_Skeleton;
 import monster.MON_Slime;
 import object.*;
 import tile_interactive.IT_DryTree;
@@ -97,10 +98,20 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 39;
         i++;
 
-        // CHEST
-        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_MapX(gp)); // any prize here
+        gp.obj[mapNum][i] = new OBJ_Door(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 35;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 81;
+        i++;
+
+        // CHESTS
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp)); // any prize here
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
         gp.obj[mapNum][i].worldY = gp.tileSize * 36;
+        i++;
+
+        gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_MapX(gp)); // any prize here
+        gp.obj[mapNum][i].worldX = gp.tileSize * 31;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 86;
     }
 
     public void setNPC() {
@@ -134,6 +145,11 @@ public class AssetSetter {
         gp.monster[mapNum][i] = new MON_Slime(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize * 33;
         gp.monster[mapNum][i].worldY = gp.tileSize * 65;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Skeleton(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 33;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 87;
 
     }
 

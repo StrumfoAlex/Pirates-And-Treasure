@@ -57,6 +57,7 @@ public class Map extends TileManager{
                     row++;
                 }
             }
+            g2.dispose();
         }
     }
 
