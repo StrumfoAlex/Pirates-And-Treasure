@@ -102,10 +102,12 @@ public class EventHandler {
         if (gp.keyH.enterPressed)
         {
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!";
+            gp.ui.currentDialogue = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!\n" +
+                    "(Your progress is saved!)";
             gp.player.life = gp.player.maxLife;
             gp.player.ammo =  gp.player.maxAmmo;
             gp.aSetter.setMonster();
+            gp.saveLoad.save();
         }
     }
     public void teleport(int map, int col, int row) {

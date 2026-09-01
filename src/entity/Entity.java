@@ -37,6 +37,8 @@ public class Entity {
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
 
+    public Entity loot;
+    public boolean opened = false;
 
     public BufferedImage image, image2, image3;
     public boolean collision = false;
@@ -142,6 +144,17 @@ public class Entity {
     public int getGoalRow(Entity target) {
         return (target.worldY + target.solidArea.y) / gp.tileSize;
     }
+    public void resetCounter() {
+        // COUNTER
+        actionLockCounter = 0;
+        spriteCounter = 0;
+        invincibleCounter = 0;
+        shotAvailableCounter = 0;
+        dyingCounter = 0;
+        hpBarCounter = 0;
+        knockBackCounter = 0;
+    }
+    public void setLoot(Entity loot) {}
     public void setAction() {}
     public void damageReaction() {}
     public void speak() {
@@ -695,16 +708,16 @@ public class Entity {
 
         switch (user.direction) {
             case "up":
-                nextWorldY = user.getTopY() - 1;
+                nextWorldY = user.getTopY() - gp.player.speed;
                 break;
             case "down":
-                nextWorldY = user.getBottomY() + 1;
+                nextWorldY = user.getBottomY() + gp.player.speed;
                 break;
             case "left":
-                nextWorldX = user.getLeftX() - 1;
+                nextWorldX = user.getLeftX() - gp.player.speed;
                 break;
             case "right":
-                nextWorldX = user.getRightX() + 1;
+                nextWorldX = user.getRightX() + gp.player.speed;
                 break;
         }
 

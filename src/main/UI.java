@@ -699,6 +699,7 @@ public class UI {
                 gp.gameState = gp.titleState;
                 gp.keyH.enterPressed = false;
                 gp.stopMusic();
+                gp.resetGame(true);
             }
         }
 
