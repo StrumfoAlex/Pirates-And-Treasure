@@ -34,8 +34,9 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
 
-    String[] dialogues = new String[20];
-    int dialogueIndex = 0;
+    public String[][] dialogues = new String[20][20];
+    public int dialogueIndex = 0;
+    public int dialogueSet = 0;
 
     public Entity loot;
     public boolean opened = false;
@@ -157,13 +158,9 @@ public class Entity {
     public void setLoot(Entity loot) {}
     public void setAction() {}
     public void damageReaction() {}
-    public void speak() {
-        if (dialogues[dialogueIndex] == null) {
-            dialogueIndex = 0;
-        }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
+    public void speak() {}
 
+    public void facePlayer() {
         switch (gp.player.direction) {
             case "up":
                 direction = "down";
@@ -178,6 +175,13 @@ public class Entity {
                 direction = "left";
                 break;
         }
+    }
+
+    public void startDialogue(Entity entity, int setNum) {
+        gp.gameState = gp.dialogueState;
+        gp.ui.npc = entity;
+        dialogueSet = setNum;
+        //dialogueIndex = 0;
     }
 
     public void interact() {}

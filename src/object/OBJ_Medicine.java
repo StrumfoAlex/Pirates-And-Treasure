@@ -19,21 +19,25 @@ public class OBJ_Medicine extends Entity {
         description = "[" + name + "]\n\nHeal your wounds!\nReceive " + value + " HP";
         price = 25;
         stackable = true;
+
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "Your drink the medicine!\n" +
+                "Your life has been recovered by " + value + " HP!";
+        dialogues[1][0] = "Your health is already full!";
     }
     
     public boolean use(Entity entity) {
-        gp.gameState = gp.dialogueState;
-
         if (gp.player.life != gp.player.maxLife) {
-            gp.ui.currentDialogue = "Your drink the medicine!\n" +
-                    "Your life has been recovered by " + value + " HP!";
+            startDialogue(this, 0);
             entity.life += value;
             gp.playSE(1);
             return true;
         }
         else {
-            //gp.ui.addMessage("Your health is already full!");
-            gp.ui.currentDialogue = "Your health is already full!";
+            startDialogue(this, 1);
             return false;
         }
     }

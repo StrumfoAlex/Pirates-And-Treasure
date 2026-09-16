@@ -11,6 +11,8 @@ public class NPC_OldMan extends Entity {
         speed = 1;
         type = type_npc;
 
+        dialogueSet = -1;
+
         getImage();
         setDialogue();
     }
@@ -26,20 +28,22 @@ public class NPC_OldMan extends Entity {
         right2 = setup("/npc/oldman_right_2", gp.tileSize,  gp.tileSize);
     }
     public void setDialogue() {
-        dialogues[0] = "Hello, young pirate!";
-        dialogues[1] = "So you've come to this island to find the treasure?";
-        dialogues[2] = "I used to be a great adventurer back in the day.\n" +
+        dialogues[0][0] = "Hello, young pirate!";
+        dialogues[0][1] = "So you've come to this island to find the treasure?";
+        dialogues[0][2] = "I used to be a great adventurer back in the day.\n" +
                         "But now I just stay here and talk to people like you.";
-        dialogues[3] = "You seem like you need some help, young pirate!\n" +
+
+        dialogues[1][0] = "You seem like you need some help, young pirate!\n" +
                         "So I have a deal for you!";
-        dialogues[4] = "Here is my house where you can find some old stuff.\n" +
+        dialogues[1][1] = "Here is my house where you can find some old stuff.\n" +
                         "You can have all that is in the house with one condition.";
-        dialogues[5] = "If you manage to find the treasure you need to give me\na part of it!";
-        dialogues[6] = """
+        dialogues[1][2] = "If you manage to find the treasure you need to give me\na part of it!";
+
+        dialogues[2][0] = """
                 Go around on the island and find keys to unlock
                 door houses and chests.
                 And maybe some clues to find the map!""";
-        dialogues[7] = "Good luck on your journey!";
+        dialogues[2][1] = "Good luck on your journey!";
     }
 
     public void setAction() {
@@ -71,7 +75,15 @@ public class NPC_OldMan extends Entity {
     }
 
     public void speak() {
-        super.speak();
+        facePlayer();
+        startDialogue(this, dialogueSet);
+
+        dialogueSet++;
+
+        if (dialogues[dialogueSet][0] == null) {
+//            dialogueSet = 0; - trow in a specific time in the dialogue
+            dialogueSet--; // show only the las one
+        }
 
         onPath = false;
     }

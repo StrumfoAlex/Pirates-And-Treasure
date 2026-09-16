@@ -26,7 +26,12 @@ public class NPC_Smuggler extends Entity{
         right2 = setup("/npc/oldman_right_2", gp.tileSize,  gp.tileSize);
     }
     public void setDialogue() {
-        dialogues[0] = "Hi pirate! Let's see what offer may we do for you today!";
+        dialogues[0][0] = "Hi pirate! Let's see what offer may we do for you today!";
+        dialogues[1][0] = "See you again to make some trades!";
+        dialogues[2][0] = "You need more coins to buy that!";
+        dialogues[3][0] = "Your inventory is full!";
+        dialogues[4][0] = "Cannot sell an equipped item!";
+
 
     }
 
@@ -39,7 +44,7 @@ public class NPC_Smuggler extends Entity{
     }
 
     public void speak() {
-        super.speak();
+        facePlayer();
         gp.gameState = gp.tradeState;
         gp.ui.npc = this;
     }

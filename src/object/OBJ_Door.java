@@ -24,10 +24,15 @@ public class OBJ_Door extends Entity
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
          */
+
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "Use a key to open the door!";
     }
 
     public void interact() {
-        gp.gameState = gp.dialogueState;
-        gp.ui.currentDialogue = "Use a key to open the door!";
+        startDialogue(this, 0);
     }
 }

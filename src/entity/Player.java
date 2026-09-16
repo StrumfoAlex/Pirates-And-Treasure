@@ -71,12 +71,18 @@ public class Player extends Entity {
         getPlayerImage();
         getPlayerAttackImage();
         setItems();
+        setDialogue();
     }
 
     public void setDefaultPositions() {
         worldX = gp.tileSize * 50; // 23 pt map1
         worldY = gp.tileSize * 50; // 21 pt map1
         direction = "down";
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You are level " + level + " now!\n"
+                + "Press C to see your stats!";
     }
 
     public void restoreStatus() {
@@ -394,8 +400,8 @@ public class Player extends Entity {
             defense = getDefense();
             gp.playSE(1);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "You are level " + level + " now!\n"
-                    + "Press C to see your stats!";
+
+            startDialogue(this, 0);
             //life = maxLife; to make full life on lvl up
         }
     }
@@ -451,7 +457,6 @@ public class Player extends Entity {
         if (i != 999)
         {
             if (gp.keyH.enterPressed) {
-                gp.gameState = gp.dialogueState;
                 gp.npc[gp.currentMap][i].speak();
             }
         }
