@@ -4,17 +4,25 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Tent extends Entity {
+
     GamePanel gp;
+    public static final String objName = "Tent";
 
     public OBJ_Tent(GamePanel gp) {
         super(gp);
         this.gp = gp;
         type = type_consumable;
-        name = "Tent";
+        name = objName;
         description = "[" + name + "]\n\nRest at night and recover your\nhealth!";
         down1 = setup("/objects/tent", gp.tileSize, gp.tileSize);
         price = 300;
         stackable = true;
+
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "Cannot sleep during the day!";
     }
 
     public boolean use(Entity entity) {
@@ -31,7 +39,7 @@ public class OBJ_Tent extends Entity {
         else {
 //            gp.ui.addMessage("Cannot sleep during the day!");
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "Cannot sleep during the day!";
+            startDialogue(this, 0);
             return false;
         }
 

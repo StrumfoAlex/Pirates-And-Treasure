@@ -41,6 +41,7 @@ public class NPC_Smuggler extends Entity{
         inventory.add(new OBJ_Shield_Iron(gp));
         inventory.add(new OBJ_Key(gp));
         inventory.add(new OBJ_Lamp(gp));
+        inventory.add(new OBJ_Tent(gp));
     }
 
     public void speak() {

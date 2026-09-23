@@ -10,10 +10,12 @@ public class OBJ_Bullet extends Projectile {
 
     GamePanel gp;
 
+    public static final String objName = "Bullet";
+
     public OBJ_Bullet(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        name = "Bullet";
+        name = objName;
         speed = 5;
         maxLife = 80;
         life = maxLife;

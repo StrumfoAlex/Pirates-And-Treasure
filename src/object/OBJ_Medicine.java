@@ -6,6 +6,7 @@ import main.GamePanel;
 public class OBJ_Medicine extends Entity {
 
     GamePanel gp;
+    public static final String objName = "Medicine";
 
     public OBJ_Medicine(GamePanel gp)
     {
@@ -13,7 +14,7 @@ public class OBJ_Medicine extends Entity {
         this.gp = gp;
 
         type = type_consumable;
-        name = "Medicine";
+        name = objName;
         value = 4;
         down1 = setup("/objects/medicine", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\n\nHeal your wounds!\nReceive " + value + " HP";

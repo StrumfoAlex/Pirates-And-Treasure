@@ -401,6 +401,7 @@ public class Player extends Entity {
             gp.playSE(1);
             gp.gameState = gp.dialogueState;
 
+            setDialogue();
             startDialogue(this, 0);
             //life = maxLife; to make full life on lvl up
         }
@@ -518,9 +519,11 @@ public class Player extends Entity {
 
         boolean canObtain = false;
 
+        Entity newItem = gp.entityGen.getObject(item.name);
+
         // Check is stackable
-        if (item.stackable) {
-            int index = searchItemInInventory(item.name);
+        if (newItem.stackable) {
+            int index = searchItemInInventory(newItem.name);
 
             if (index != 999) {
                 inventory.get(index).amount++;
@@ -528,14 +531,14 @@ public class Player extends Entity {
             }
             else { // New item
                 if (inventory.size() != maxInventorySize) {
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtain = true;
                 }
             }
         }
         else { // Not stackable
             if (inventory.size() != maxInventorySize) {
-                inventory.add(item);
+                inventory.add(newItem);
                 canObtain = true;
             }
         }

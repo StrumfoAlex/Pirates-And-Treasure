@@ -7,11 +7,13 @@ public class OBJ_Axe extends Entity {
 
     GamePanel gp;
 
+    public static final String objName = "Axe";
+
     public OBJ_Axe(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
-        name = "Axe";
+        name = objName;
         type = type_axe;
         attackValue = 2;
         attackArea.width = 30;

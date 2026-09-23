@@ -5,13 +5,14 @@ import main.GamePanel;
 
 public class OBJ_Ammo extends Entity {
     GamePanel gp;
+    public static final String objName = "Ammo";
 
     public OBJ_Ammo(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = type_pickupOnly;
-        name = "Ammo";
+        name = objName;
         value = 1;
         down1 = setup("/projectile/bulletFull", gp.tileSize, gp.tileSize);
         image = setup("/projectile/bulletFull", gp.tileSize, gp.tileSize);
