@@ -51,6 +51,9 @@ public class EventHandler {
         eventMaster.dialogues[0][0] = "You ate a toxic berry!";
         eventMaster.dialogues[1][0] = "You ate a good berry!\nYour life is fully restored!\nYou have full ammo!\n" +
                 "(Your progress is saved!)";
+        eventMaster.dialogues[2][0] = "You find the treasure!\nBut someone follows you to stole it...";
+        eventMaster.dialogues[2][1] = "Is the old pirate...\nHe was tricking you to find the treasure!\nHe wants to fight you!\nYou have to defeat him!";
+        eventMaster.dialogues[3][0] = "You may have a clue where is the big treasure!\nBut you have to find the map first!";
     }
 
      public void checkEvent() {
@@ -68,6 +71,7 @@ public class EventHandler {
              else if (hit(0, 48, 48, "any")) { healingBush(gp.dialogueState); }
              else if (hit(0, 11, 50, "any")) { teleport(1, 53, 50); }
              else if (hit(1, 53, 50, "any")) { teleport(0, 11, 50); }
+             else if (hit(0, 80, 29, "any")) { finalBattle(gp.dialogueState); }
              else if (hit(1, 50, 50, "left")) { speak(gp.npc[1][0]); }
          }
         // directia poate fi "up", "down", "left", "right", sau "any"
@@ -132,6 +136,21 @@ public class EventHandler {
         tempCol = col;
         tempRow = row;
         canTouchEvent = false;
+    }
+
+    public void finalBattle(int gameState) {
+        if (gp.player.searchItemInInventory("Treasure Map") != 999) {
+            gp.gameState = gameState;
+            eventMaster.startDialogue(eventMaster, 2);
+            canTouchEvent = false;
+            // spawn the final boss
+            //gp.aSetter.setFinalBoss();
+        }
+        else {
+            eventMaster.startDialogue(eventMaster, 3);
+            canTouchEvent = false;
+        }
+
     }
 
     public void speak(Entity entity) {
