@@ -26,7 +26,7 @@ public class MON_Slime extends Entity {
         life = maxLife;
         attack = 4;
         defense = 0;
-        exp = 3;
+        exp = 2;
         projectile = new OBJ_Rock(gp);
 
         solidArea.x = 3;

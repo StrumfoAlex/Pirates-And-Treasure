@@ -5,7 +5,6 @@ import main.GamePanel;
 import object.OBJ_Ammo;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
-import object.OBJ_Rock;
 
 import java.util.Random;
 
@@ -24,9 +23,9 @@ public class MON_Skeleton extends Entity {
         speed = defaultSpeed;
         maxLife = 10;
         life = maxLife;
-        attack = 5;
+        attack = 6;
         defense = 2;
-        exp = 10;
+        exp = 7;
 
         solidArea.x = 4;
         solidArea.y = 4;

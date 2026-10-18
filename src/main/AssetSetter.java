@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC_OldMan;
 import entity.NPC_Smuggler;
+import monster.MON_Boss;
 import monster.MON_Skeleton;
 import monster.MON_Slime;
 import object.*;
@@ -163,6 +164,38 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldX = gp.tileSize * 24;
         gp.monster[mapNum][i].worldY = gp.tileSize * 36;
 
+    }
+
+    public void setFinalBattle() {
+        int i = 0;
+        int mapNum = 0;
+
+        // spawn sidekicks
+
+        gp.monster[mapNum][i] = new MON_Slime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 82;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 25;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Slime(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 82;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 34;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Skeleton(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 83;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 28;
+        i++;
+
+        gp.monster[mapNum][i] = new MON_Skeleton(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 83;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 31;
+        i++;
+
+        // spawn the final boss
+        gp.monster[mapNum][i] = new MON_Boss(gp);
+        gp.monster[mapNum][i].worldX = gp.tileSize * 84;
+        gp.monster[mapNum][i].worldY = gp.tileSize * 29;
     }
 
     public void setInteractiveTile() {

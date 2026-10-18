@@ -8,7 +8,7 @@ public class EventHandler {
     Entity eventMaster;
 
     int previousEventX, previousEventY;
-    boolean canTouchEvent = true;
+    boolean canTouchEvent = true, canActivateFinal = true;
     int tempMap, tempCol, tempRow;
 
     public EventHandler(GamePanel gp) {
@@ -139,12 +139,13 @@ public class EventHandler {
     }
 
     public void finalBattle(int gameState) {
-        if (gp.player.searchItemInInventory("Treasure Map") != 999) {
+        if (gp.player.searchItemInInventory("Treasure Map") != 999 && canActivateFinal) {
             gp.gameState = gameState;
             eventMaster.startDialogue(eventMaster, 2);
             canTouchEvent = false;
-            // spawn the final boss
-            //gp.aSetter.setFinalBoss();
+            canActivateFinal = false;
+            gp.aSetter.setFinalBattle();
+            gp.npc[0][0] = null;
         }
         else {
             eventMaster.startDialogue(eventMaster, 3);
