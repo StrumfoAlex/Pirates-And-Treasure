@@ -139,15 +139,22 @@ public class EventHandler {
     }
 
     public void finalBattle(int gameState) {
-        if (gp.player.searchItemInInventory("Treasure Map") != 999 && canActivateFinal) {
+        boolean hasTreasureMap = gp.player.searchItemInInventory("Treasure Map") != 999;
+
+        // final battle only one time
+        if (hasTreasureMap && canActivateFinal) {
             gp.gameState = gameState;
             eventMaster.startDialogue(eventMaster, 2);
             canTouchEvent = false;
             canActivateFinal = false;
             gp.aSetter.setFinalBattle();
             gp.npc[0][0] = null;
+            return;
         }
-        else {
+
+        // if you have not gotten the treasure map, you cannot activate the final battle
+        if (!hasTreasureMap && canActivateFinal) {
+            gp.gameState = gameState;
             eventMaster.startDialogue(eventMaster, 3);
             canTouchEvent = false;
         }

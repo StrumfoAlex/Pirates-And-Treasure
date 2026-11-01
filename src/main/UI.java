@@ -4,6 +4,7 @@ import entity.NPC_Smuggler;
 import object.OBJ_Ammo;
 import object.OBJ_Coin;
 import object.OBJ_Heart;
+import object.OBJ_Treasure;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -39,6 +40,33 @@ public class UI {
 
     int charIndex = 0;
     String combinedText = "";
+
+
+    // Ending
+    public boolean endingActive = false;
+    private long endingStartTime = 0L;
+    private long endingPhaseTime = 0L;
+    private int endingStage = 0;
+
+    private final String[] endingLines = {
+            "The old pirate has fallen...",
+            "The treasure is yours.",
+            "But the sea never forgets its dead.",
+            "You are now a respected pirate, but at what cost?",
+            "The waves whisper tales of your deeds,",
+            "and the wind carries the echoes of your choices.",
+            "You decided to stay on this island,",
+            "bringing peace and new people to its shores.",
+            "But the world beyond is still full of adventure."
+    };
+
+    private final String[] creditsLines = {
+            "Game Design: Alexandru Marioara",
+            "Programming: Alexandru Marioara",
+            "Inspiration and help: RyiSnow",
+            "Art: Alexandru Marioara, Google-Gemini",
+            "Music: Alexandru Marioara"
+    };
 
 //    double playTime;
 //    DecimalFormat dFormat = new DecimalFormat("0.00");
@@ -126,6 +154,9 @@ public class UI {
         // SLEEP STATE
         if (gp.gameState == gp.sleepState) {
             drawSleepScreen();
+        }
+        if (gp.gameState == gp.endingState) {
+            drawEndingScreen(g2);
         }
     }
 
@@ -303,11 +334,19 @@ public class UI {
             }
         }
         else {
+            // dialog finished
             npc.dialogueIndex = 0;
+            charIndex = 0;
+            combinedText = "";
+            currentDialogue = "";
 
-            if (gp.gameState == gp.dialogueState)
-            {
-                gp.gameState = gp.playState;
+            if (gp.gameState == gp.dialogueState) {
+                if (npc instanceof OBJ_Treasure) {
+                    gp.gameState = gp.endingState;
+                    startEnding();
+                } else {
+                    gp.gameState = gp.playState;
+                }
             }
         }
 
@@ -956,6 +995,120 @@ public class UI {
                 gp.eManager.lighting.dayCounter = 0;
                 gp.gameState = gp.playState;
                 gp.player.getPlayerImage();
+            }
+        }
+    }
+
+    public void startEnding() {
+        endingActive = true;
+        endingStartTime = System.currentTimeMillis();
+        endingPhaseTime = endingStartTime;
+        endingStage = 0; // 0 fade-in, 1 story, 2 credits, 3 return
+    }
+
+    public void drawEndingScreen(Graphics2D g2) {
+        if (!endingActive) return;
+
+        long now = System.currentTimeMillis();
+        long totalElapsed = now - endingStartTime;
+        long phaseElapsed = now - endingPhaseTime;
+
+        // base background
+        g2.setColor(Color.BLACK);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.setColor(Color.WHITE);
+
+        // Stage 0: Fade in (2s)
+        if (endingStage == 0) {
+            float alpha = Math.min(1f, phaseElapsed / 2000f);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setColor(new Color(255, 255, 255, 35));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            g2.setFont(maruMonica.deriveFont(Font.BOLD, 72F));
+            String title = "ENDING";
+            int x = getXforCenteredText(title);
+            int y = 200;
+            g2.drawString(title, x, y);
+
+            // move to next stage
+            if (phaseElapsed >= 2000) {
+                endingStage = 1;
+                endingPhaseTime = now;
+            }
+            return;
+        }
+
+        // Title displayed also during story and credits
+        g2.setFont(maruMonica.deriveFont(Font.BOLD, 72F));
+        String title = "ENDING";
+        int titleX = getXforCenteredText(title);
+        int titleY = 200;
+        g2.drawString(title, titleX, titleY);
+
+        // Stage 1: Story lines appear progressively (about 16s)
+        if (endingStage == 1) {
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+
+            int baseY = gp.screenHeight / 2 - 70;
+            int lineGap = 42;
+            int startX = gp.screenWidth / 2 - 320;
+            long lineDelay = 2000L;
+
+            for (int i = 0; i < endingLines.length; i++) {
+                if (phaseElapsed >= i * lineDelay) {
+                    int y = baseY + i * lineGap;
+                    g2.drawString(endingLines[i], startX, y);
+                }
+            }
+
+            long stageDuration = (endingLines.length * lineDelay) + 1200L;
+            if (phaseElapsed >= stageDuration) {
+                endingStage = 2;
+                endingPhaseTime = now;
+            }
+            return;
+        }
+
+        // Stage 2: Credits scroll (about 12s)
+        if (endingStage == 2) {
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
+
+            int startY = gp.screenHeight + 40;
+            int y = startY - (int)(phaseElapsed / 10); // smooth scroll
+
+            int creditX = gp.screenWidth / 2 - 260;
+            for (int i = 0; i < creditsLines.length; i++) {
+                g2.drawString(creditsLines[i], creditX, y + i * 58);
+            }
+
+            // optional small footer
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+            String footer = "Thank you for playing!";
+            int fx = getXforCenteredText(footer);
+            g2.drawString(footer, fx, gp.screenHeight - 40);
+
+            if (phaseElapsed >= 12000) {
+                endingStage = 3;
+                endingPhaseTime = now;
+            }
+            return;
+        }
+
+        // Stage 3: short hold then return to title
+        if (endingStage == 3) {
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
+            String text = "The End";
+            int x = getXforCenteredText(text);
+            int y = gp.screenHeight / 2;
+            g2.drawString(text, x, y);
+
+            if (phaseElapsed >= 2000) {
+                endingActive = false;
+                gp.gameState = gp.titleState;
+                currentDialogue = "";
             }
         }
     }

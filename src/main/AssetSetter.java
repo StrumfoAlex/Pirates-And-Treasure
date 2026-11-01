@@ -198,6 +198,31 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldY = gp.tileSize * 29;
     }
 
+    public void spawnTreasureIfUnlocked() {
+        if (!gp.treasureUnlocked) return;
+
+        int mapNum = 0;
+        int spawnX = gp.tileSize * 81;
+        int spawnY = gp.tileSize * 29;
+
+        for (int i = 0; i < gp.obj[mapNum].length; i++) {
+            if (gp.obj[mapNum][i] != null && "Treasure".equals(gp.obj[mapNum][i].name)) {
+                gp.treasureUnlocked = false;
+                return;
+            }
+        }
+
+        for (int i = 0; i < gp.obj[mapNum].length; i++) {
+            if (gp.obj[mapNum][i] == null) {
+                gp.obj[mapNum][i] = new OBJ_Treasure(gp);
+                gp.obj[mapNum][i].worldX = spawnX;
+                gp.obj[mapNum][i].worldY = spawnY;
+                gp.treasureUnlocked = false;
+                return;
+            }
+        }
+    }
+
     public void setInteractiveTile() {
         int i = 0;
         int mapNum = 0;

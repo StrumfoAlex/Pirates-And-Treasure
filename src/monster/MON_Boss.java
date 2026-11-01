@@ -1,6 +1,7 @@
 package monster;
 
 import entity.Entity;
+import main.AssetSetter;
 import main.GamePanel;
 import object.OBJ_Ammo;
 import object.OBJ_Coin;
@@ -23,7 +24,7 @@ public class MON_Boss extends Entity {
         speed = defaultSpeed;
         maxLife = 24;
         life = maxLife;
-        attack = 8;
+        attack = 9;
         defense = 3;
         exp = 10;
 
@@ -96,6 +97,8 @@ public class MON_Boss extends Entity {
     }
 
     public void checkDrop() {
+        gp.treasureUnlocked = true;
+
         // Cast a die
         int i = new Random().nextInt(100)+1;
 

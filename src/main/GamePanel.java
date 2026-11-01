@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     SaveLoad saveLoad = new SaveLoad(this);
     public EntityGenerator entityGen = new EntityGenerator(this);
     Thread gameThread;
+    public boolean treasureUnlocked = false;
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -76,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 8;
     public final int mapState = 9;
     public final int sleepState = 10;
+    public final int endingState = 11;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -170,6 +172,8 @@ public class GamePanel extends JPanel implements Runnable {
                     if (!monster[currentMap][i].alive) {
                         monster[currentMap][i].checkDrop();
                         monster[currentMap][i] = null;
+
+                        aSetter.spawnTreasureIfUnlocked();
                     }
                 }
             }
@@ -223,6 +227,9 @@ public class GamePanel extends JPanel implements Runnable {
         // TITLE SCREEN
         if (gameState == titleState) {
             ui.draw(g2);
+        }
+        else if (gameState == endingState) {
+            ui.drawEndingScreen(g2);
         }
         // MAP SCREEN
         else if (gameState == mapState) {
